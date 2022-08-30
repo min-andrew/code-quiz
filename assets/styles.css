@@ -1,0 +1,22 @@
+header {
+    display: flex;
+    flex-direction: row;
+    margin: 50px;
+}
+
+#right-side {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#start {
+    align-self: center;
+}
