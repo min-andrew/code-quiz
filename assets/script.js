@@ -36,8 +36,8 @@ function startQuiz() {
 
 var questionSource = [
     {
-        question: "Questions 1 : String values must be enclosed within _____ when being assigned to variables.",
-        choices: ["a. commas", "b. curly brackets", "c. quotes", "d. parenthesis"],
+        question: "Questions 1 : Which of the options is not a data type in JavaScript.",
+        choices: ["a. Boolean", "b. Object", "c. Subject", "d. Undefined"],
         answer: "c"
     },
     {
@@ -61,7 +61,7 @@ var questionSource = [
         answer: "b"
     },
     {
-        question: "Questions 6 : The first index of an array is ____.",
+        question: "Questions 6 : The second index of an array is ____.",
         choices: ["a. 0", "b. 1", "c. 8", "d. any"],
         answer: "a"
     },
