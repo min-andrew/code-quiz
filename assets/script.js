@@ -24,6 +24,8 @@ function countdown() {
 
 // quiz application 
 var startButton = document.querySelector("#start");
+var startPage = document.querySelector("#startPage");
+var questionPage = document.querySelector("#questionPage");
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startQuiz);
@@ -78,7 +80,9 @@ var questionSource = [
 ];
 
 // After finishing a startQuiz, name is inputted and saved 
-
+var userName = document.querySelector("#usernamePage");
 
 // your score application
 // 
+
+var highScore = document.querySelector("#highscorePage");
