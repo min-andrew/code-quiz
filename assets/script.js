@@ -34,8 +34,8 @@ var clearBtn = document.querySelector("#clear_btn");
 //Questions
 var questionBank = [
     {
-        question: "Question 1 : What does HTML stand for?",
-        choices: ["a. Helpertext Mover Language", "b. Hypertext Markup Language", "c. Helpertext Markup Language", "d. Hypertext Mover Language"],
+        question: "Question 1 : What uses does Javascript NOT have?",
+        choices: ["a. Create dynamically updating content", "b. Write files on the server", "c. Control multimedia", "d. Animate images"],
         answer: "b"
     },
     {
