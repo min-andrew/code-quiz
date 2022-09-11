@@ -1,88 +1,254 @@
-// timer application
-// things to do :
-// 1. minus seconds if you answer incorrectly
-// 2. start timer app when quiz gets pressed 
+// Header variables
+var rightSide = document.querySelector("#right_side");
+var leftSide = document.querySelector("#left_side");
+var scoreCheck = document.querySelector("#score_check");
 
-var timerEl = document.getElementById('timer');
+// Start page variables
+var welcomePage = document.querySelector("#welcome");
+var startBtn = document.querySelector("#start_button");
+var startPage = document.querySelector("#start_page");
 
-// The countdown function starts and stops the timer and triggers highScore()
-function countdown() {
-    var timeLeft = 60;
+// Question page variables 
+var questionPage = document.querySelector("#question_page");
+var askQuestion = document.querySelector("#ask_question");
+var reactButtons = document.querySelectorAll(".choices");
+var choiceBtn1 = document.querySelector("#choice_btn1");
+var choiceBtn2 = document.querySelector("#choice_btn2");
+var choiceBtn3 = document.querySelector("#choice_btn3");
+var choiceBtn4 = document.querySelector("#choice_btn4");
+var answerCheck = document.querySelector("#answer_check");
 
-    var timeInterval = setInterval(function () {
-        timeLeft--;
-        timerEl.textContent = "Timer: " + timeLeft;
+// Score submit page 
+var submitPage = document.querySelector("#submit_page");
+var finalScore = document.querySelector("#final_score");
+var userInitials = document.querySelector("#initials");
+var submitBtn = document.querySelector("#submit_btn");
 
-        if (timeLeft === 0) {
-            // Stops execution of action at set interval
-            clearInterval(timeInterval);
-            // Calls function to create and append image
-            // log high score value into localstorage 
-        }
-    }, 1000);
-}
+// High score page 
+var highScorePage = document.querySelector("#highscore_page");
+var Scores = document.querySelector("#scores");
+var finished = document.querySelector("#finished");
+var backBtn = document.querySelector("#back_btn");
+var clearBtn = document.querySelector("#clear_btn");
 
-// quiz application 
-var startButton = document.querySelector("#start");
-var startPage = document.querySelector("#startPage");
-var questionPage = document.querySelector("#questionPage");
-
-// Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startQuiz);
-
-// startQuiz function is started when start button is pressed 
-function startQuiz() {
-    // Timer starts when quiz is started 
-    countdown();
-};
-
-var questionSource = [
+//Questions
+var questionBank = [
     {
-        question: "Questions 1 : Which of the options is not a data type in JavaScript.",
-        choices: ["a. Boolean", "b. Object", "c. Subject", "d. Undefined"],
-        answer: "c"
-    },
-    {
-        question: "Questions 2 : Commonly used data types DO NOT include:",
-        choices: ["a. strings", "b. booleans", "c. alerts", "d. numbers"],
-        answer: "c"
-    },
-    {
-        question: "Questions 3 : How do you create a function in JavaScript",
-        choices: ["a. function = myFunction()", "b. function myFunction()", "c. function:myFunction()", "d. createMyFunction()"],
+        question: "Question 1 : What does HTML stand for?",
+        choices: ["a. Helpertext Mover Language", "b. Hypertext Markup Language", "c. Helpertext Markup Language", "d. Hypertext Mover Language"],
         answer: "b"
     },
     {
-        question: "Questions 4 : How do you call a function named myFunction?",
-        choices: ["a. call myFunction()", "b. call function myFunction()", "c. myFunction()", "d. call myFunction"],
+        question: "Question 2 : JavaScript data types DO NOT include:",
+        choices: ["a. Null", "b. Booleans", "c. Defined", "d. Symbol"],
         answer: "c"
     },
     {
-        question: "Questions 5 : To see if two variables are equal in an if / else statement you would use ____.",
-        choices: ["a. =", "b. ==", "c. 'equals'", "d. !="],
+        question: "Question 3 : What do you create an array with in JavaScript",
+        choices: ["a. Parenthesis", "b. Brackets", "c. Squiggly Brackets", "d. Hashtags"],
         answer: "b"
     },
     {
-        question: "Questions 6 : The second index of an array is ____.",
-        choices: ["a. 0", "b. 1", "c. 8", "d. any"],
-        answer: "a"
-    },
-    {
-        question: "Questions 7 : How to write an IF statement in JavaScript?",
-        choices: ["a. if i == 5 then", "b. if i = 5 then", "c. if(i == 5)", "d. if i = 5"],
+        question: "Question 4 : What is NOT a way to declare a variable?",
+        choices: ["a. var", "b. let", "c. with", "d. const"],
         answer: "c"
     },
     {
-        question: "Questions 8 : Which event occurs when the user clicks on an HTML element?",
-        choices: ["a. onclick", "b. onchange", "c. onmouseover", "d. onmouseclick"],
-        answer: "a"
+        question: "Question 5 : The first index in an array is?",
+        choices: ["a. 1", "b. i", "c. a", "d. 0"],
+        answer: "d"
     }
 ];
 
-// After finishing a startQuiz, name is inputted and saved 
-var userName = document.querySelector("#usernamePage");
+//Set other variables
+var timeLeft = document.getElementById("timer");
+var secondsLeft = 60;
+var questionNumber = 0;
+var totalScore = 0;
+var questionCount = 1;
 
-// your score application
-// 
+/*Functions*/
+// timer 
+function timer() {
 
-var highScore = document.querySelector("#highscorePage");
+    var timerInterval = setInterval(function () {
+
+        secondsLeft--;
+        timeLeft.textContent = "Time left: " + secondsLeft + " s";
+
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            timeLeft.textContent = "Finished!";
+            // if time is up, show on score board content instead of "all done!"
+            finished.textContent = "Finished!";
+            gameOver();
+
+        } else if (questionCount >= questionBank.length + 1) {
+            clearInterval(timerInterval);
+            gameOver();
+        }
+    }, 1000);
+};
+
+//start the quiz
+function quizStart() {
+    startPage.style.display = "none";
+    questionPage.style.display = "block";
+    questionNumber = 0
+    timer();
+    showQuestion(questionNumber);
+
+};
+
+//presents the questions and answers
+function showQuestion(n) {
+    askQuestion.textContent = questionBank[n].question;
+    choiceBtn1.textContent = questionBank[n].choices[0];
+    choiceBtn2.textContent = questionBank[n].choices[1];
+    choiceBtn3.textContent = questionBank[n].choices[2];
+    choiceBtn4.textContent = questionBank[n].choices[3];
+    questionNumber = n;
+};
+
+//answer check
+function checkAnswer(event) {
+    event.preventDefault();
+    //make it display
+    answerCheck.style.display = "block";
+    setTimeout(function () {
+        answerCheck.style.display = 'none';
+    }, 1000);
+
+    if (questionBank[questionNumber].answer == event.target.value) {
+        answerCheck.textContent = "Correct!";
+        totalScore = totalScore + 1;
+
+    } else {
+        secondsLeft = secondsLeft - 7;
+        answerCheck.textContent = "Wrong! The correct answer is " + questionBank[questionNumber].answer + " .";
+    }
+    //THEN I am presented with another question
+    if (questionNumber < questionBank.length - 1) {
+        // call showQuestions to bring in next question when any reactBtn is clicked
+        showQuestion(questionNumber + 1);
+    } else {
+        gameOver();
+    }
+    questionCount++;
+};
+
+//WHEN all questions are answered or the timer reaches 0, Game is over
+function gameOver() {
+
+    questionPage.style.display = "none";
+    submitPage.style.display = "block";
+    console.log(submitPage);
+    // show final score
+    finalScore.textContent = "Your final score is " + totalScore;
+    // clearInterval(timerInterval);  
+    timeLeft.style.display = "none";
+};
+
+// get current score and initials from local storage
+function getScore() {
+    var currentList = localStorage.getItem("ScoreList");
+    if (currentList !== null) {
+        freshList = JSON.parse(currentList);
+        return freshList;
+    } else {
+        freshList = [];
+    }
+    return freshList;
+};
+
+// add scores to the score board
+function addScore() {
+    Scores.innerHTML = "";
+    Scores.style.display = "block";
+    var highScores = sort();
+    //show the top five high scores. 
+    var topFive = highScores.slice(0, 5);
+    for (var i = 0; i < topFive.length; i++) {
+        var item = topFive[i];
+        // Show the score list on score board
+        var li = document.createElement("li");
+        li.textContent = item.user + " - " + item.score;
+        li.setAttribute("data-index", i);
+        Scores.appendChild(li);
+    }
+};
+
+// sort score and ranking the highscore list
+function sort() {
+    var unsortedList = getScore();
+    if (getScore == null) {
+        return;
+    } else {
+        unsortedList.sort(function (a, b) {
+            return b.score - a.score;
+        })
+        return unsortedList;
+    }
+};
+
+// push new score and initial to local storage
+function addItem(n) {
+    var addedList = getScore();
+    addedList.push(n);
+    localStorage.setItem("ScoreList", JSON.stringify(addedList));
+};
+
+function saveScore() {
+    var scoreItem = {
+        user: userInitials.value,
+        score: totalScore
+    };
+    addItem(scoreItem);
+    addScore();
+};
+
+/* Add event listeners*/
+// startbtn to start the quiz
+startBtn.addEventListener("click", quizStart);
+
+//click any choices button, go to the next question
+reactButtons.forEach(function (click) {
+    click.addEventListener("click", checkAnswer);
+});
+
+//save information and go to next page
+submitBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    submitPage.style.display = "none";
+    startPage.style.display = "none";
+    highScorePage.style.display = "block";
+    questionPage.style.display = "none";
+    saveScore();
+});
+
+// check high score list
+scoreCheck.addEventListener("click", function (event) {
+    event.preventDefault();
+    submitPage.style.display = "none";
+    startPage.style.display = "none";
+    highScorePage.style.display = "block";
+    questionPage.style.display = "none";
+    addScore();
+});
+
+// back to start page
+backBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    submitPage.style.display = "none";
+    startPage.style.display = "block";
+    highScorePage.style.display = "none";
+    questionPage.style.display = "none";
+    location.reload();
+});
+
+//clear scores
+clearBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.clear();
+    addScore();
+});

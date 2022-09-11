@@ -1,40 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding Quiz</title>
-    <link rel="stylesheet" href="./assets/styles.css" />
-  </head>
+<html>
 
-  <body>
-    <header>
-      <section id="left-side">
-        <button id="high-score">View High Score</button>
-      </section>
-      <section id="right-side">
-        <h2 id="timer"></h2>
-      </section>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Quiz</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
 
-    <body>
-      <section id="startPage">
-        <h1>Coding Quiz</h1>
-        <p>Test yourself and see how good of a score you can get.</p>
-        <button id="start">Start Quiz</button>
-      </section>
-      <section id="questionPage">
-        <!-- questions  -->
-      </section>
-      <section id="usernamePage">
-        <!-- username input  -->
-      </section>
-      <section id="highscorePage">
-        <!-- view high scores -->
-      </section>
-    </body>
+<body>
+  <header>
+    <section class="header">
+      <article id="left_side">
+        <button class="button" id="score_check">View High Scores</button>
+      </article>
+      <article id="right_side">
+        <p id="timer"></p>
+      </article>
+    </section>
+  </header>
 
-    <script src="./assets/script.js"></script>
-  </body>
+  <main>
+    <!-- Start page -->
+    <section class="start_page" id="start_page">
+      <article id="welcome">
+        <h1>
+          Coding Quiz Challenge
+        </h1>
+        <p>
+          Good luck and please try your best, or else.
+        </p>
+        <button class="button" id="start_button">Start Quiz</button>
+      </article>
+    </section>
+
+    <!--Questions page-->
+    <section class="question_page" id="question_page">
+      <h2 id="ask_question">Ask the question</h2>
+      <ul>
+        <li><button class="choices button" id="choice_btn1" value="a">Choice1</button></li>
+        <li><button class="choices button" id="choice_btn2" value="b">Choice2</button></li>
+        <li><button class="choices button" id="choice_btn3" value="c">Answer3</button></li>
+        <li><button class="choices button" id="choice_btn4" value="d">Answer4</button></li>
+      </ul>
+      <article id="answer_check">
+        <p></p>
+      </article>
+    </section>
+
+    <!--Score submit page-->
+    <section class="submit_page" id="submit_page">
+      <article>
+        <h2 id="finished"></h2>
+        <p id="final_score"></p>
+        <p>Enter your initials
+          <input id="initials">
+          <button class="button" id="submit_btn">Submit</button>
+        </p>
+      </article>
+    </section>
+
+    <!--High scores page-->
+    <section class="highscore_page" id="highscore_page">
+      <h2>High Scores</h2>
+      <article id="scores">
+        <p>Your record</p>
+      </article>
+      <aside>
+        <button class="button" id="back_btn">Back</button>
+        <button class="button" id="clear_btn">Clear Highscores</button>
+      </aside>
+    </section>
+  </main>
+
+  <script src="./assets/script.js"></script>
+</body>
+
 </html>
